@@ -1,32 +1,51 @@
-# Repository Guidelines
+# CODEX Finanpy
 
-## Project Structure & Module Organization
-- `core/` contém configurações, URLs raiz e entrypoints Django; apps de domínio vivem em `accounts/`, `categories/`, `profiles/`, `transactions/` e `users/`.
-- Templates, static assets e forms devem residir dentro do app correspondente (`templates/<app_name>/`, `static/<app_name>/`), mantendo isolamento descrito em `docs/architecture.md`.
-- Documentação de suporte está em `docs/`, enquanto agentes especializados e seus mandatos estão em `agents/`.
-- O banco local `db.sqlite3` acompanha o repositório e deve ser tratado como ambiente de desenvolvimento.
+Este CODEX resume o que já está estabelecido no projeto Finanpy. Use-o como porta de entrada rápida; detalhes completos estão na pasta `docs/` e no `PRD.md`.
 
-## Build, Test, and Development Commands
-- Criar ambiente: `python -m venv .venv && source .venv/bin/activate` (Linux/macOS) ou `.venv\Scripts\activate` (Windows).
-- Instalar dependências: `pip install -r requirements.txt`.
-- Sincronizar schema base: `python manage.py migrate`.
-- Servidor local: `python manage.py runserver`.
-- Testes Django (quando existirem): `python manage.py test <app_name>`; testes E2E via Playwright devem ser executados pelos cenários definidos pelo agente QA.
+## Propósito e visão
+- Finanpy é uma aplicação web de finanças pessoais focada em simplicidade, interface em português brasileiro e tema escuro (ver `docs/overview.md` e `PRD.md`).
+- O produto pretende permitir cadastro/login por e-mail, gerenciamento de contas, categorias, transações e visualizações básicas, conforme metas descritas no PRD. Esses recursos ainda não foram implementados no código.
 
-## Coding Style & Naming Conventions
-- Siga PEP 8, use quatro espaços e prefira aspas simples em Python. Comentários e docstrings em inglês; textos exibidos ao usuário em PT-BR.
-- Views devem ser Class-Based quando possível; signals ficam em `signals.py` importados via `apps.py`.
-- Nomeie migrations e arquivos com foco no domínio (`accounts/migrations/0002_add_type_field.py`), alinhando-se ao roadmap do PRD.
+## Stack e configurações atuais
+- Backend: Python 3.13+ com Django 5 (`requirements.txt`).
+- Banco de dados: SQLite padrão configurado em `core/settings.py`.
+- Idioma e fuso horário já ajustados para `pt-BR` e `America/Sao_Paulo`.
+- Dependências adicionais serão introduzidas somente quando necessário e registradas em `requirements.txt`.
 
-## Testing Guidelines
-- Framework padrão: `django.test.TestCase` para unidade/integrado; recorrer a Playwright para fluxos end-to-end e verificação visual.
-- Objetivo de cobertura definido no PRD: ≥70% para autenticação e CRUD ao final do MVP.
-- Use fixtures mínimas e dados consistentes com o modelo ER descrito no PRD. Nomeie métodos de teste como `test_<feature>_<scenario>()`.
+## Estado do repositório
+- Projeto Django inicial com `manage.py`, app `core` e apps dedicados `accounts`, `categories`, `profiles`, `transactions`, `users`.
+- Arquivos `models.py`, `views.py`, `tests.py` dos apps permanecem com scaffolding gerado pelo Django; ainda não há lógica de negócio, URLs adicionais, templates ou signals.
+- Banco `db.sqlite3` acompanha o repositório como base vazia.
 
-## Commit & Pull Request Guidelines
-- O histórico atual é inicial; adote mensagens no imperativo curto (`Add account model signal`) e inclua contexto do PRD ou issue.
-- PRs devem conter descrição objetiva, checklist de validação (migrações, testes manuais), e evidências visuais para mudanças de UI.
-- Relacione PRs aos agentes ou documentos envolvidos (ex.: “Covered pela diretriz em `agents/frontend-templates.md`”) sempre que aplicável.
+## Estrutura e responsabilidades
+- `core`: configurações globais, roteamento raiz e entrypoints.
+- `accounts`: futuro domínio de contas bancárias.
+- `categories`: futuro domínio de categorias de receita/despesa.
+- `transactions`: futuro domínio de transações financeiras.
+- `profiles`: futuro domínio de perfis estendidos dos usuários.
+- `users`: futuro domínio para customização do modelo de usuário e fluxos de autenticação.
 
-## Agent Workflow
-- Consulte `agents/README.md` para escolher o agente apropriado antes de iniciar uma tarefa. Cada agente usa MCP servers específicos (context7 para implementação, playwright para QA) e deve ser citado nas entregas quando acionado.
+Detalhes adicionais sobre a divisão de domínios e relacionamentos esperados estão em `docs/architecture.md` e na seção de dados do `PRD.md`.
+
+## Setup rápido
+1. Criar/ativar ambiente virtual (`python -m venv .venv` e ativação correspondente).
+2. Instalar dependências: `pip install -r requirements.txt`.
+3. Aplicar migrações padrão: `python manage.py migrate`.
+4. Executar o servidor: `python manage.py runserver`.
+
+Recomendações e observações adicionais constam em `docs/development-setup.md`.
+
+## Diretrizes de implementação
+- Seguir PEP 8, com código, docstrings e comentários em inglês; strings exibidas ao usuário permanecem em PT-BR.
+- Preferir aspas simples em código Python.
+- Manter cada domínio no seu app correspondente, utilizando Class-Based Views, signals dedicados (`signals.py` + `apps.py`) e templates organizados por app.
+- Ao implementar novas features, alinhar-se aos padrões de UX e design descritos no PRD e em `docs/guidelines.md`.
+- Priorizar desempenho (<2s por página), segurança (proteções padrão do Django) e organização modular conforme requisitos não funcionais já definidos.
+
+## Referências
+- Índice de documentação: `docs/README.md`.
+- Visão geral e estado atual: `docs/overview.md`.
+- Setup de desenvolvimento: `docs/development-setup.md`.
+- Arquitetura e domínios: `docs/architecture.md`.
+- Diretrizes de código e UX: `docs/guidelines.md`.
+- Requisitos completos, metas e roadmap: `PRD.md`.
