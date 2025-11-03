@@ -315,10 +315,10 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
 - [X] Preparar para Sprints Finais
   - [X] Documentar pendências: Docker, testes unitários, Chart.js integração.
 
-### Sprint Final: Docker e Testes (Semana 8+)
-- [ ] Dockerização
-  - [ ] Criar Dockerfile para Django + SQLite.
-  - [ ] docker-compose.yml com volumes para db.sqlite.
-- [ ] Testes Básicos
-  - [ ] Em tests.py de cada app, tests para models e views (pytest ou Django TestCase).
-  - [ ] Cobertura >70% para autenticação e CRUD.
+### Sprint Final: Docker e Testes (Semana 8+) [X]
+- [X] Dockerização
+  - [X] Criar Dockerfile para Django + SQLite.
+  - [X] docker-compose.yml com volumes para db.sqlite.
+- [X] Testes Básicos
+  - [X] Em tests.py de cada app, tests para models e views (pytest ou Django TestCase).
+  - [X] Cobertura >70% para autenticação e CRUD.

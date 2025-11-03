@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    command: >
+      bash -c "python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DB_NAME: /app/data/db.sqlite3
+    volumes:
+      - .:/app
+      - sqlite_data:/app/data
+
+volumes:
+  sqlite_data:
