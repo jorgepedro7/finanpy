@@ -22,6 +22,7 @@
                     <a href="{% url 'accounts:list' %}" class="text-gray-300 hover:text-indigo-300 transition">Contas</a>
                     <a href="{% url 'transactions:list' %}" class="text-gray-300 hover:text-indigo-300 transition">Transações</a>
                     <a href="{% url 'categories:list' %}" class="text-gray-300 hover:text-indigo-300 transition">Categorias</a>
+                    <a href="{% url 'reports' %}" class="text-gray-300 hover:text-indigo-300 transition">Relatórios</a>
                     <form action="{% url 'users:logout' %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-md transition">

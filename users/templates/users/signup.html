@@ -38,30 +38,21 @@
                 {% endif %}
                 <div class="space-y-2">
                     <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-300">E-mail</label>
-                    {{ form.email.as_widget(attrs={
-                        'class': 'w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500',
-                        'placeholder': 'nome@exemplo.com'
-                    }) }}
+                    {{ form.email }}
                     {% if form.email.errors %}
                         <p class="text-sm text-red-400">{{ form.email.errors|join:', ' }}</p>
                     {% endif %}
                 </div>
                 <div class="space-y-2">
                     <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-300">Senha</label>
-                    {{ form.password1.as_widget(attrs={
-                        'class': 'w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500',
-                        'placeholder': 'mínimo de 8 caracteres'
-                    }) }}
+                    {{ form.password1 }}
                     {% if form.password1.errors %}
                         <p class="text-sm text-red-400">{{ form.password1.errors|join:', ' }}</p>
                     {% endif %}
                 </div>
                 <div class="space-y-2">
                     <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-300">Confirmar senha</label>
-                    {{ form.password2.as_widget(attrs={
-                        'class': 'w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500',
-                        'placeholder': 'repita a senha'
-                    }) }}
+                    {{ form.password2 }}
                     {% if form.password2.errors %}
                         <p class="text-sm text-red-400">{{ form.password2.errors|join:', ' }}</p>
                     {% endif %}
@@ -73,7 +64,7 @@
             </form>
             <p class="text-sm text-gray-400 text-center">
                 Já possui uma conta?
-                <a href="{% url 'login' %}" class="text-indigo-300 hover:text-indigo-200 font-medium">Entrar</a>
+                <a href="{% url 'users:login' %}" class="text-indigo-300 hover:text-indigo-200 font-medium">Entrar</a>
             </p>
         </div>
     </div>

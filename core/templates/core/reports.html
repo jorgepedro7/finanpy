@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% block title %}Relatórios · Finanpy{% endblock title %}
+{% block content %}
+<div class="space-y-6">
+    <header class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-white">Relatórios financeiros</h1>
+            <p class="text-sm text-gray-400">
+                Visualize o desempenho das suas contas e categorias em um intervalo de datas personalizado.
+            </p>
+        </div>
+    </header>
+
+    <section class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-5">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+            <div class="md:col-span-2">
+                <label for="data_inicio" class="text-xs uppercase tracking-widest text-indigo-200 font-semibold">Data inicial</label>
+                <input type="date" id="data_inicio" name="data_inicio" value="{{ data_inicio }}"
+                       class="mt-1 w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white">
+            </div>
+            <div class="md:col-span-2">
+                <label for="data_fim" class="text-xs uppercase tracking-widest text-indigo-200 font-semibold">Data final</label>
+                <input type="date" id="data_fim" name="data_fim" value="{{ data_fim }}"
+                       class="mt-1 w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white">
+            </div>
+            <div class="md:col-span-1 flex items-center gap-3">
+                <button type="submit"
+                        class="w-full md:w-auto bg-gradient-to-r from-indigo-600 to-blue-700 hover:from-indigo-700 hover:to-blue-800 text-white px-5 py-2 rounded-md shadow transition">
+                    Aplicar filtros
+                </button>
+                <a href="{% url 'reports' %}" class="w-full md:w-auto bg-gray-700 hover:bg-gray-600 text-white px-5 py-2 rounded-md transition text-center">
+                    Limpar
+                </a>
+            </div>
+        </form>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-900/60 border border-gray-700 rounded-lg p-4 space-y-1">
+                <span class="text-xs uppercase tracking-widest text-green-300">Total de receitas</span>
+                <p class="text-2xl font-semibold text-green-400">R$ {{ total_income|floatformat:2 }}</p>
+            </div>
+            <div class="bg-gray-900/60 border border-gray-700 rounded-lg p-4 space-y-1">
+                <span class="text-xs uppercase tracking-widest text-red-300">Total de despesas</span>
+                <p class="text-2xl font-semibold text-red-400">R$ {{ total_expense|floatformat:2 }}</p>
+            </div>
+            <div class="bg-gray-900/60 border border-gray-700 rounded-lg p-4 space-y-1">
+                <span class="text-xs uppercase tracking-widest text-indigo-300">Saldo do período</span>
+                <p class="text-2xl font-semibold {% if balance >= 0 %}text-green-300{% else %}text-red-300{% endif %}">
+                    R$ {{ balance|floatformat:2 }}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {% if has_transactions %}
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
+                <header>
+                    <h2 class="text-lg font-semibold text-white">Resumo por categoria</h2>
+                    <p class="text-xs text-gray-400">
+                        Receitas e despesas consolidadas para cada categoria utilizada no período selecionado.
+                    </p>
+                </header>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700 text-sm text-gray-200">
+                        <thead class="bg-gray-900/70 text-xs uppercase tracking-widest text-gray-400">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Categoria</th>
+                                <th class="px-4 py-3 text-right">Receitas</th>
+                                <th class="px-4 py-3 text-right">Despesas</th>
+                                <th class="px-4 py-3 text-right">Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            {% if category_summary %}
+                                {% for item in category_summary %}
+                                <tr class="hover:bg-gray-900/50 transition">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-2">
+                                            {% if item.color_class %}
+                                                <span class="w-3 h-3 rounded-full border border-white/40 {{ item.color_class }}"></span>
+                                            {% endif %}
+                                            <div>
+                                                <span class="font-medium text-white">
+                                                    {{ item.name }}
+                                                </span>
+                                                <p class="text-xs text-gray-500 uppercase tracking-widest">
+                                                    {{ item.type_label }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-right text-green-300">R$ {{ item.income|floatformat:2 }}</td>
+                                    <td class="px-4 py-3 text-right text-red-300">R$ {{ item.expense|floatformat:2 }}</td>
+                                    <td class="px-4 py-3 text-right {% if item.balance >= 0 %}text-green-300{% else %}text-red-300{% endif %}">
+                                        R$ {{ item.balance|floatformat:2 }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="px-4 py-6 text-center text-gray-500">
+                                        Nenhuma categoria movimentada no período filtrado.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
+                <header>
+                    <h2 class="text-lg font-semibold text-white">Resumo por conta</h2>
+                    <p class="text-xs text-gray-400">
+                        Entenda como cada conta movimentou receitas e despesas no período filtrado.
+                    </p>
+                </header>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700 text-sm text-gray-200">
+                        <thead class="bg-gray-900/70 text-xs uppercase tracking-widest text-gray-400">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Conta</th>
+                                <th class="px-4 py-3 text-left">Tipo</th>
+                                <th class="px-4 py-3 text-right">Receitas</th>
+                                <th class="px-4 py-3 text-right">Despesas</th>
+                                <th class="px-4 py-3 text-right">Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            {% if account_summary %}
+                                {% for item in account_summary %}
+                                <tr class="hover:bg-gray-900/50 transition">
+                                    <td class="px-4 py-3 font-medium text-white">
+                                        {{ item.name }}
+                                    </td>
+                                    <td class="px-4 py-3 text-gray-400 text-xs uppercase tracking-widest">
+                                        {{ item.type_label }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right text-green-300">R$ {{ item.income|floatformat:2 }}</td>
+                                    <td class="px-4 py-3 text-right text-red-300">R$ {{ item.expense|floatformat:2 }}</td>
+                                    <td class="px-4 py-3 text-right {% if item.balance >= 0 %}text-green-300{% else %}text-red-300{% endif %}">
+                                        R$ {{ item.balance|floatformat:2 }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="px-4 py-6 text-center text-gray-500">
+                                        Nenhuma conta teve movimentação no período selecionado.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
+            <header>
+                <h2 class="text-lg font-semibold text-white">Visualização gráfica</h2>
+                <p class="text-xs text-gray-400">
+                    Um gráfico interativo em Chart.js será integrado em sprints futuras para enriquecer as análises.
+                </p>
+            </header>
+            <div class="h-64 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-500 text-sm">
+                Placeholder para gráfico de categorias (Chart.js)
+            </div>
+        </section>
+    {% else %}
+        <section class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 text-center space-y-3">
+            <h2 class="text-lg font-semibold text-white">Nenhuma movimentação encontrada</h2>
+            <p class="text-sm text-gray-400">
+                Ajuste o intervalo de datas ou registre novas transações para visualizar relatórios consolidados.
+            </p>
+            <div class="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-3">
+                <a href="{% url 'transactions:create' %}"
+                   class="inline-flex items-center justify-center px-5 py-2 rounded-md bg-gradient-to-r from-indigo-600 to-blue-700 hover:from-indigo-700 hover:to-blue-800 text-white font-medium shadow transition">
+                    Registrar transação
+                </a>
+                <a href="{% url 'transactions:list' %}" class="text-indigo-300 hover:text-indigo-200 text-sm">
+                    Ver movimentações existentes
+                </a>
+            </div>
+        </section>
+    {% endif %}
+</div>
+{% endblock content %}

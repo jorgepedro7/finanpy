@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
@@ -36,7 +37,9 @@ class AccountCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        messages.success(self.request, 'Conta criada com sucesso!')
+        return response
 
 
 class AccountUpdateView(LoginRequiredMixin, UpdateView):
@@ -48,6 +51,11 @@ class AccountUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         return Account.objects.filter(user=self.request.user)
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Conta atualizada com sucesso!')
+        return response
+
 
 class AccountDeleteView(LoginRequiredMixin, DeleteView):
     model = Account
@@ -56,3 +64,7 @@ class AccountDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Account.objects.filter(user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'Conta removida com sucesso!')
+        return super().delete(request, *args, **kwargs)

@@ -303,17 +303,17 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
   - [X] Query para últimas 10 transações em tabela.
   - [X] Link para adicionar transação rápida.
 
-### Sprint 6: Relatórios e Polimento (Semana 7)
-- [ ] Relatórios View
-  - [ ] Em core/views.py, TemplateView com filtros GET (data_inicio, data_fim).
-  - [ ] Query agregada por categoria/conta usando annotate.
-  - [ ] Template report.html com tabela e gráfico placeholder (div para Chart.js futuro).
-- [ ] Polir UX
-  - [ ] Adicionar mensagens flash (Django messages) em PT-BR para ações CRUD.
-  - [ ] Garantir responsividade em todos templates.
-  - [ ] Testar fluxos end-to-end manualmente.
-- [ ] Preparar para Sprints Finais
-  - [ ] Documentar pendências: Docker, testes unitários, Chart.js integração.
+### Sprint 6: Relatórios e Polimento (Semana 7) [X]
+- [X] Relatórios View
+  - [X] Em core/views.py, TemplateView com filtros GET (data_inicio, data_fim).
+  - [X] Query agregada por categoria/conta usando annotate.
+  - [X] Template report.html com tabela e gráfico placeholder (div para Chart.js futuro).
+- [X] Polir UX
+  - [X] Adicionar mensagens flash (Django messages) em PT-BR para ações CRUD.
+  - [X] Garantir responsividade em todos templates.
+  - [X] Testar fluxos end-to-end manualmente.
+- [X] Preparar para Sprints Finais
+  - [X] Documentar pendências: Docker, testes unitários, Chart.js integração.
 
 ### Sprint Final: Docker e Testes (Semana 8+)
 - [ ] Dockerização

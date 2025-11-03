@@ -15,7 +15,7 @@
             <a href="{% url 'accounts:list' %}" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Contas</a>
             <a href="{% url 'categories:list' %}" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Categorias</a>
             <a href="{% url 'transactions:list' %}" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Transações</a>
-            <a href="#" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Relatórios</a>
+            <a href="{% url 'reports' %}" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Relatórios</a>
         </nav>
         <div class="bg-gray-900/60 border border-gray-700 rounded-lg p-4">
             <h3 class="text-sm font-semibold text-indigo-300 uppercase tracking-wider">Atalhos</h3>
@@ -23,6 +23,7 @@
                 <li>• <a href="{% url 'transactions:create' %}" class="text-indigo-300 hover:text-indigo-200">Adicionar nova transação</a></li>
                 <li>• <a href="{% url 'accounts:create' %}" class="text-indigo-300 hover:text-indigo-200">Registrar conta bancária</a></li>
                 <li>• <a href="{% url 'categories:create' %}" class="text-indigo-300 hover:text-indigo-200">Criar categoria personalizada</a></li>
+                <li>• <a href="{% url 'reports' %}" class="text-indigo-300 hover:text-indigo-200">Visualizar relatórios</a></li>
             </ul>
         </div>
     </aside>
