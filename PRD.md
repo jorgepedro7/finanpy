@@ -228,24 +228,24 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
 
 ## Lista de tarefas
 
-### Sprint 1: Setup Inicial e Autenticação (Semana 1-2)
+### Sprint 1: Setup Inicial e Autenticação (Semana 1-2) [X]
 - [X] Configurar projeto Django base
   - [X] Criar virtualenv e instalar Django 5.x via pip.
   - [X] Executar `django-admin startproject core .` e ajustar settings.py para apps (accounts, categories, core, profiles, transactions, users).
   - [X] Configurar LANGUAGE_CODE='pt-br' e TIME_ZONE='America/Sao_Paulo' em settings.py.
   - [X] Adicionar apps instalados em INSTALLED_APPS.
-- [ ] Customizar modelo User para e-mail
-  - [ ] Em users/models.py, subclass AbstractUser com USERNAME_FIELD='email' e REQUIRED_FIELDS=[].
-  - [ ] Em users/admin.py, registrar User customizado.
-  - [ ] Criar migração inicial com `python manage.py makemigrations users` e `migrate`.
-- [ ] Implementar views e templates de autenticação
-  - [ ] Em users/views.py, criar CBV LoginView e SignupView usando CreateView para User.
-  - [ ] Configurar urls.py em core e users para /login/, /signup/, /logout/.
-  - [ ] Criar templates base.html com Tailwind CDN, header e footer escuros.
-  - [ ] Criar login.html e signup.html com forms em PT-BR, inputs Tailwind e botão gradiente.
-- [ ] Site público
-  - [ ] Em core/views.py, criar TemplateView para home pública com links para login/signup.
-  - [ ] Template home.html com hero gradiente e chamadas para ação.
+- [X] Customizar modelo User para e-mail
+  - [X] Em users/models.py, subclass AbstractUser com USERNAME_FIELD='email' e REQUIRED_FIELDS=[].
+  - [X] Em users/admin.py, registrar User customizado.
+  - [X] Criar migração inicial com `python manage.py makemigrations users` e `migrate`.
+- [X] Implementar views e templates de autenticação
+  - [X] Em users/views.py, criar CBV LoginView e SignupView usando CreateView para User.
+  - [X] Configurar urls.py em core e users para /login/, /signup/, /logout/.
+  - [X] Criar templates base.html com Tailwind CDN, header e footer escuros.
+  - [X] Criar login.html e signup.html com forms em PT-BR, inputs Tailwind e botão gradiente.
+- [X] Site público
+  - [X] Em core/views.py, criar TemplateView para home pública com links para login/signup.
+  - [X] Template home.html com hero gradiente e chamadas para ação.
 
 ### Sprint 2: Perfis e Dashboard Básico (Semana 3)
 - [ ] Modelo Profile

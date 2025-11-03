@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Criar conta · Finanpy{% endblock title %}
+{% block content %}
+<section class="max-w-2xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gradient-to-br from-indigo-700/90 via-blue-700/80 to-gray-900 border border-indigo-500/30 rounded-xl p-8 text-white space-y-4">
+            <h1 class="text-3xl font-bold">Organize suas finanças com tranquilidade</h1>
+            <p class="text-indigo-100">
+                Planeje seu orçamento, acompanhe entradas e saídas e visualize seu saldo em tempo real.
+                Finanpy cuida do resto com interface clara e 100% em português.
+            </p>
+            <ul class="space-y-2 text-indigo-100/90 text-sm">
+                <li class="flex items-center space-x-2">
+                    <span class="h-2 w-2 rounded-full bg-indigo-300"></span>
+                    <span>Cadastre suas contas bancárias e cartões</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="h-2 w-2 rounded-full bg-indigo-300"></span>
+                    <span>Classifique cada transação por categoria</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <span class="h-2 w-2 rounded-full bg-indigo-300"></span>
+                    <span>Visualize relatórios e gráficos intuitivos</span>
+                </li>
+            </ul>
+        </div>
+        <div class="bg-gray-800/80 border border-gray-700 rounded-xl shadow-xl p-8 space-y-6">
+            <div class="space-y-2 text-center">
+                <h2 class="text-3xl font-bold text-white">Criar conta</h2>
+                <p class="text-gray-400">Preencha seus dados para começar em menos de um minuto.</p>
+            </div>
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="bg-red-600/90 text-white px-4 py-3 rounded-lg">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <div class="space-y-2">
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-300">E-mail</label>
+                    {{ form.email.as_widget(attrs={
+                        'class': 'w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500',
+                        'placeholder': 'nome@exemplo.com'
+                    }) }}
+                    {% if form.email.errors %}
+                        <p class="text-sm text-red-400">{{ form.email.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+                <div class="space-y-2">
+                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-300">Senha</label>
+                    {{ form.password1.as_widget(attrs={
+                        'class': 'w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500',
+                        'placeholder': 'mínimo de 8 caracteres'
+                    }) }}
+                    {% if form.password1.errors %}
+                        <p class="text-sm text-red-400">{{ form.password1.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+                <div class="space-y-2">
+                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-300">Confirmar senha</label>
+                    {{ form.password2.as_widget(attrs={
+                        'class': 'w-full bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500',
+                        'placeholder': 'repita a senha'
+                    }) }}
+                    {% if form.password2.errors %}
+                        <p class="text-sm text-red-400">{{ form.password2.errors|join:', ' }}</p>
+                    {% endif %}
+                </div>
+                <button type="submit"
+                        class="w-full bg-gradient-to-r from-indigo-600 to-blue-700 hover:from-indigo-700 hover:to-blue-800 text-white font-medium py-2.5 rounded-md shadow-lg transition">
+                    Criar conta gratuitamente
+                </button>
+            </form>
+            <p class="text-sm text-gray-400 text-center">
+                Já possui uma conta?
+                <a href="{% url 'login' %}" class="text-indigo-300 hover:text-indigo-200 font-medium">Entrar</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock content %}

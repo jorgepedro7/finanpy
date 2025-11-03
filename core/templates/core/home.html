@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Finanpy · Controle financeiro simples{% endblock title %}
+{% block content %}
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+    <div class="space-y-6">
+        <div class="space-y-4">
+            <span class="inline-flex items-center px-3 py-1 bg-indigo-600/20 text-indigo-200 rounded-full text-xs uppercase tracking-wider">
+                Finanças pessoais sem complicação
+            </span>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Controle seu dinheiro com uma experiência clara e em tempo real.
+            </h1>
+            <p class="text-lg text-gray-300">
+                Cadastre contas, categorize transações e acompanhe seu saldo em um dashboard intuitivo e
+                de tema escuro, pensado para o dia a dia corrido.
+            </p>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-4 sm:space-y-0">
+            <a href="{% url 'users:signup' %}"
+               class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-gradient-to-r from-indigo-600 to-blue-700 hover:from-indigo-700 hover:to-blue-800 text-white font-medium shadow-lg transition">
+                Começar agora
+            </a>
+            <a href="{% url 'users:login' %}" class="text-indigo-200 hover:text-indigo-100 font-medium">
+                Já possuo conta
+            </a>
+        </div>
+        <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-400">
+            <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-4">
+                <dt class="text-indigo-300 font-semibold">Cadastro rápido</dt>
+                <dd class="mt-1">Crie sua conta com e-mail e senha em menos de um minuto.</dd>
+            </div>
+            <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-4">
+                <dt class="text-indigo-300 font-semibold">Dashboard intuitivo</dt>
+                <dd class="mt-1">Visualize saldo, transações recentes e categorias de um só lugar.</dd>
+            </div>
+            <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-4">
+                <dt class="text-indigo-300 font-semibold">Tema escuro</dt>
+                <dd class="mt-1">Interface agradável com foco no uso noturno e mobile-first.</dd>
+            </div>
+        </dl>
+    </div>
+    <div class="bg-gray-800/50 border border-gray-700 rounded-3xl p-8 shadow-2xl">
+        <div class="bg-gradient-to-br from-gray-900 via-indigo-900/80 to-gray-900 rounded-2xl p-6 space-y-6">
+            <h2 class="text-xl font-semibold text-white">Planejamento mensal em destaque</h2>
+            <div class="space-y-4 text-sm text-gray-300">
+                <div class="flex items-center justify-between">
+                    <span>Saldo consolidado</span>
+                    <span class="text-green-400 font-semibold">R$ 8.250,00</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>Despesas do mês</span>
+                    <span class="text-red-400 font-semibold">R$ 3.420,00</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>Receitas do mês</span>
+                    <span class="text-indigo-300 font-semibold">R$ 5.700,00</span>
+                </div>
+            </div>
+            <div>
+                <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Categorias recentes</p>
+                <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div class="bg-gray-800/70 border border-gray-700 rounded-lg p-3 space-y-1">
+                        <span class="text-indigo-300 font-semibold">Alimentação</span>
+                        <p class="text-gray-400">Gastos controlados e alertas semanais.</p>
+                    </div>
+                    <div class="bg-gray-800/70 border border-gray-700 rounded-lg p-3 space-y-1">
+                        <span class="text-indigo-300 font-semibold">Cartão de crédito</span>
+                        <p class="text-gray-400">Limite em dia e previsão de fatura.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
