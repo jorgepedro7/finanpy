@@ -275,17 +275,17 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
 - [X] Integrar no Dashboard
   - [X] Query para saldo total em dashboard view.
 
-### Sprint 4: Categorias (Semana 5)
-- [ ] Modelo Category
-  - [ ] Em categories/models.py, Category com FK User, name, type choices, color (CharField com Tailwind classes).
-  - [ ] created_at/updated_at.
-  - [ ] Makemigrations e migrate.
-- [ ] Admin para Category
-  - [ ] Registrar em admin.py com filters por type.
-- [ ] CRUD Views
-  - [ ] Similar a Accounts: List/Create/Update/Delete CBVs.
-  - [ ] Template com preview de cor em botões.
-- [ ] Sidebar link para /categories/.
+### Sprint 4: Categorias (Semana 5) [X]
+- [X] Modelo Category
+  - [X] Em categories/models.py, Category com FK User, name, type choices, color (CharField com Tailwind classes).
+  - [X] created_at/updated_at.
+  - [X] Makemigrations e migrate.
+- [X] Admin para Category
+  - [X] Registrar em admin.py com filters por type.
+- [X] CRUD Views
+  - [X] Similar a Accounts: List/Create/Update/Delete CBVs.
+  - [X] Template com preview de cor em botões.
+- [X] Sidebar link para /categories/.
 
 ### Sprint 5: Transações (Semana 6)
 - [ ] Modelo Transaction

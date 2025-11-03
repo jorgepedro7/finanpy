@@ -13,7 +13,7 @@
                 <span class="text-xs uppercase tracking-widest text-white/70">Atual</span>
             </a>
             <a href="{% url 'accounts:list' %}" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Contas</a>
-            <a href="#" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Categorias</a>
+            <a href="{% url 'categories:list' %}" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Categorias</a>
             <a href="#" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Transações</a>
             <a href="#" class="block px-3 py-2 rounded-lg bg-gray-900/60 border border-gray-700 text-gray-300 hover:text-indigo-200 transition">Relatórios</a>
         </nav>
@@ -22,7 +22,7 @@
             <ul class="mt-3 space-y-2 text-xs text-gray-300">
                 <li>• Adicionar nova transação</li>
                 <li>• <a href="{% url 'accounts:create' %}" class="text-indigo-300 hover:text-indigo-200">Registrar conta bancária</a></li>
-                <li>• Criar categoria personalizada</li>
+                <li>• <a href="{% url 'categories:create' %}" class="text-indigo-300 hover:text-indigo-200">Criar categoria personalizada</a></li>
             </ul>
         </div>
     </aside>
@@ -93,6 +93,36 @@
                 </p>
                 <div class="h-48 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-600">
                     Placeholder do gráfico
+                </div>
+                <div class="space-y-2 text-sm text-gray-300">
+                    {% if categories %}
+                        <p class="text-xs text-gray-500">
+                            Você possui {{ category_counts.income }} categorias de receita e {{ category_counts.expense }} de despesa.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {% for category in categories|slice:":6" %}
+                                <div class="flex items-center justify-between border border-gray-700 rounded-lg px-4 py-3 bg-gray-900/60">
+                                    <div>
+                                        <p class="font-semibold text-white">{{ category.name }}</p>
+                                        <p class="text-xs text-gray-500 uppercase tracking-widest">{{ category.get_type_display }}</p>
+                                    </div>
+                                    <span class="inline-flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full border border-white/40 {{ category.color }}"></span>
+                                        <span class="text-xs text-gray-400">{{ category.get_color_display }}</span>
+                                    </span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if categories|length > 6 %}
+                            <p class="text-xs text-gray-500">
+                                Exibindo primeiras categorias. Gerencie todas em <a href="{% url 'categories:list' %}" class="text-indigo-300 hover:text-indigo-200 font-semibold">Categorias</a>.
+                            </p>
+                        {% endif %}
+                    {% else %}
+                        <p class="text-gray-500">
+                            Nenhuma categoria cadastrada ainda. <a href="{% url 'categories:create' %}" class="text-indigo-300 hover:text-indigo-200 font-semibold">Criar categoria</a>.
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-3">
