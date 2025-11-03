@@ -287,21 +287,21 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
   - [X] Template com preview de cor em botões.
 - [X] Sidebar link para /categories/.
 
-### Sprint 5: Transações (Semana 6)
-- [ ] Modelo Transaction
-  - [ ] Em transactions/models.py, Transaction com FKs para User/Account/Category, amount, description, date, type.
-  - [ ] created_at/updated_at.
-  - [ ] Makemigrations e migrate.
-- [ ] Admin para Transaction
-  - [ ] Registrar com inline para Account/Category.
-- [ ] CRUD Views
-  - [ ] ListView com filtro por data; Create/Update/Delete com choices populados.
-  - [ ] Form com cálculo de saldo pós-transação via signal.
-- [ ] Signal para atualizar saldo Account
-  - [ ] Em accounts/signals.py, post_save para Transaction atualizando account.balance.
-- [ ] Integrar no Dashboard
-  - [ ] Query para últimas 10 transações em tabela.
-  - [ ] Link para adicionar transação rápida.
+### Sprint 5: Transações (Semana 6) [X]
+- [X] Modelo Transaction
+  - [X] Em transactions/models.py, Transaction com FKs para User/Account/Category, amount, description, date, type.
+  - [X] created_at/updated_at.
+  - [X] Makemigrations e migrate.
+- [X] Admin para Transaction
+  - [X] Registrar com inline para Account/Category.
+- [X] CRUD Views
+  - [X] ListView com filtro por data; Create/Update/Delete com choices populados.
+  - [X] Form com cálculo de saldo pós-transação via signal.
+- [X] Signal para atualizar saldo Account
+  - [X] Em accounts/signals.py, post_save para Transaction atualizando account.balance.
+- [X] Integrar no Dashboard
+  - [X] Query para últimas 10 transações em tabela.
+  - [X] Link para adicionar transação rápida.
 
 ### Sprint 6: Relatórios e Polimento (Semana 7)
 - [ ] Relatórios View

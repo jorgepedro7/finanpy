@@ -17,11 +17,11 @@
 
     <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-5 space-y-1">
-            <span class="text-xs uppercase tracking-widest text-indigo-300">Saldo inicial total</span>
+            <span class="text-xs uppercase tracking-widest text-indigo-300">Saldo atualizado total</span>
             <p class="text-2xl font-semibold text-white">
                 R$ {{ total_balance|default_if_none:'0'|floatformat:2 }}
             </p>
-            <p class="text-xs text-gray-400">Soma dos saldos iniciais de todas as suas contas registradas.</p>
+            <p class="text-xs text-gray-400">Soma dos saldos atuais considerando movimentações registradas.</p>
         </div>
     </section>
 
@@ -33,6 +33,7 @@
                         <th class="px-4 py-3 text-left">Nome</th>
                         <th class="px-4 py-3 text-left">Tipo</th>
                         <th class="px-4 py-3 text-right">Saldo inicial</th>
+                        <th class="px-4 py-3 text-right">Saldo atual</th>
                         <th class="px-4 py-3 text-right">Criada em</th>
                         <th class="px-4 py-3 text-right">Ações</th>
                     </tr>
@@ -47,6 +48,9 @@
                             <td class="px-4 py-3 text-right text-green-300">
                                 R$ {{ account.initial_balance|floatformat:2 }}
                             </td>
+                            <td class="px-4 py-3 text-right text-green-300">
+                                R$ {{ account.current_balance|floatformat:2 }}
+                            </td>
                             <td class="px-4 py-3 text-right text-gray-400">
                                 {{ account.created_at|date:'d/m/Y' }}
                             </td>
@@ -59,7 +63,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="5" class="px-4 py-6 text-center text-gray-500">
+                            <td colspan="6" class="px-4 py-6 text-center text-gray-500">
                                 Nenhuma conta cadastrada ainda. Clique em <strong>Nova conta</strong> para começar.
                             </td>
                         </tr>

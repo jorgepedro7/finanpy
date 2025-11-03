@@ -18,6 +18,7 @@ class Account(models.Model):
     )
     name = models.CharField(max_length=100)
     initial_balance = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    current_balance = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     type = models.CharField(max_length=20, choices=AccountType.choices, default=AccountType.CHECKING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -30,4 +31,7 @@ class Account(models.Model):
     def __str__(self):
         return f'{self.name} ({self.get_type_display()})'
 
-# Create your models here.
+    def save(self, *args, **kwargs):
+        if self._state.adding and self.current_balance == Decimal('0.00'):
+            self.current_balance = self.initial_balance
+        super().save(*args, **kwargs)

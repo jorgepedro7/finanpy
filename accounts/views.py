@@ -22,7 +22,7 @@ class AccountListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         total_balance = self.get_queryset().aggregate(
-            total=Coalesce(Sum('initial_balance'), Decimal('0.00'))
+            total=Coalesce(Sum('current_balance'), Decimal('0.00'))
         )['total']
         context['total_balance'] = total_balance
         return context

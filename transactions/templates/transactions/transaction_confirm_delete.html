@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Remover transação · Finanpy{% endblock title %}
+{% block content %}
+<div class="max-w-xl mx-auto space-y-6">
+    <header>
+        <h1 class="text-3xl font-bold text-white">Remover transação</h1>
+        <p class="text-sm text-gray-400">
+            Tem certeza de que deseja remover a transação <strong>{{ object.description|default:'(Sem descrição)' }}</strong>?
+        </p>
+    </header>
+    <form method="post" class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-5">
+        {% csrf_token %}
+        <p class="text-sm text-gray-300">
+            Esta ação é permanente e atualizará automaticamente o saldo da conta relacionada.
+        </p>
+        <div class="flex items-center justify-end gap-3">
+            <a href="{% url 'transactions:list' %}" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition">
+                Cancelar
+            </a>
+            <button type="submit"
+                    class="bg-red-600 hover:bg-red-500 text-white px-5 py-2 rounded-md shadow transition">
+                Remover
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
