@@ -247,33 +247,33 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
   - [X] Em core/views.py, criar TemplateView para home pública com links para login/signup.
   - [X] Template home.html com hero gradiente e chamadas para ação.
 
-### Sprint 2: Perfis e Dashboard Básico (Semana 3)
-- [ ] Modelo Profile
-  - [ ] Em profiles/models.py, criar Profile com OneToOneField para User, full_name, photo.
-  - [ ] Adicionar created_at/updated_at via mixin ou auto_now.
-  - [ ] Makemigrations e migrate para profiles.
-- [ ] Signal para criar Profile automático
-  - [ ] Em profiles/signals.py, post_save para User criando Profile.
-  - [ ] Em profiles/apps.py, importar signals em ready().
-- [ ] Dashboard View
-  - [ ] Em core/views.py, LoginRequiredMixin + TemplateView para /dashboard/.
-  - [ ] Template dashboard.html com grid Tailwind, seções para saldo e transações placeholder.
-  - [ ] Adicionar menu sidebar com links para seções futuras.
+### Sprint 2: Perfis e Dashboard Básico (Semana 3) [X]
+- [X] Modelo Profile
+  - [X] Em profiles/models.py, criar Profile com OneToOneField para User, full_name, photo.
+  - [X] Adicionar created_at/updated_at via mixin ou auto_now.
+  - [X] Makemigrations e migrate para profiles.
+- [X] Signal para criar Profile automático
+  - [X] Em profiles/signals.py, post_save para User criando Profile.
+  - [X] Em profiles/apps.py, importar signals em ready().
+- [X] Dashboard View
+  - [X] Em core/views.py, LoginRequiredMixin + TemplateView para /dashboard/.
+  - [X] Template dashboard.html com grid Tailwind, seções para saldo e transações placeholder.
+  - [X] Adicionar menu sidebar com links para seções futuras.
 
-### Sprint 3: Contas Bancárias (Semana 4)
-- [ ] Modelo Account
-  - [ ] Em accounts/models.py, Account com ForeignKey User, name, initial_balance, type choices.
-  - [ ] Adicionar created_at/updated_at.
-  - [ ] Makemigrations e migrate.
-- [ ] Admin para Account
-  - [ ] Em accounts/admin.py, registrar Account com list_display e filters.
-- [ ] CRUD Views para Accounts
-  - [ ] Em accounts/views.py, ListView, CreateView, UpdateView, DeleteView com LoginRequiredMixin.
-  - [ ] Forms em forms.py com ModelForm, validações numéricas.
-  - [ ] Urls em accounts/urls.py.
-  - [ ] Templates: account_list.html (tabela Tailwind), form.html genérico com inputs.
-- [ ] Integrar no Dashboard
-  - [ ] Query para saldo total em dashboard view.
+### Sprint 3: Contas Bancárias (Semana 4) [X]
+- [X] Modelo Account
+  - [X] Em accounts/models.py, Account com ForeignKey User, name, initial_balance, type choices.
+  - [X] Adicionar created_at/updated_at.
+  - [X] Makemigrations e migrate.
+- [X] Admin para Account
+  - [X] Em accounts/admin.py, registrar Account com list_display e filters.
+- [X] CRUD Views para Accounts
+  - [X] Em accounts/views.py, ListView, CreateView, UpdateView, DeleteView com LoginRequiredMixin.
+  - [X] Forms em forms.py com ModelForm, validações numéricas.
+  - [X] Urls em accounts/urls.py.
+  - [X] Templates: account_list.html (tabela Tailwind), form.html genérico com inputs.
+- [X] Integrar no Dashboard
+  - [X] Query para saldo total em dashboard view.
 
 ### Sprint 4: Categorias (Semana 5)
 - [ ] Modelo Category
