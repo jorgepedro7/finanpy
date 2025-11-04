@@ -315,6 +315,70 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
 - [X] Preparar para Sprints Finais
   - [X] Documentar pendências: Docker, testes unitários, Chart.js integração.
 
+
+
+### Sprint 7: Documentação e Entrega Final (Semana 9) [X]
+
+
+* [X] **Documentação Técnica**
+
+  * [X] Criar arquivo `README.md` na raiz do projeto contendo:
+
+    * Descrição geral do sistema.
+    * Requisitos mínimos (Python, Django, dependências).
+    * Instruções para instalação, configuração e execução local.
+    * Estrutura de diretórios e explicação de cada app.
+    * Contato ou autoria do projeto.
+  * [X] Adicionar instruções para migrações (`makemigrations`, `migrate`) e criação de superusuário.
+  * [X] Criar seção sobre como contribuir (pull requests, convenções de commit).
+  * [X] Gerar diagrama de arquitetura (via Mermaid) no README para ilustrar relação entre apps.
+* [X] **Documentação de APIs e Rotas**
+
+  * [X] Criar `docs/routes.md` descrevendo todas as URLs principais:
+
+    * `/login/`, `/signup/`, `/logout/`, `/dashboard/`, `/accounts/`, `/categories/`, `/transactions/`, `/reports/`.
+    * Métodos suportados (GET/POST/DELETE).
+    * Requisitos de autenticação.
+  * [X] Incluir exemplos de payloads e respostas JSON quando aplicável (transações e contas).
+* [X] **Documentação de Modelos**
+
+  * [X] Criar `docs/models.md` com:
+
+    * Descrição dos modelos (User, Profile, Account, Category, Transaction).
+    * Campos e relacionamentos (FKs, tipos, restrições).
+    * Notas sobre signals (`post_save` para criação de Profile e atualização de saldo).
+* [X] **Guia de Estilo de Código**
+
+  * [X] Criar `docs/conventions.md` com:
+
+    * Convenções de nomenclatura (snake_case para variáveis, PascalCase para classes).
+    * Uso de aspas simples e importações ordenadas (PEP 8).
+    * Preferência por CBVs e uso de `LoginRequiredMixin`.
+    * Estrutura modular de apps e uso de `signals.py` separado.
+* [X] **Documentação de Interface**
+
+  * [X] Capturar capturas de tela (screenshots) das principais telas: login, dashboard, contas, categorias, transações.
+  * [X] Criar `docs/ui.md` com:
+
+    * Layout geral (base.html, sidebar, header, footer).
+    * Paleta de cores e classes Tailwind mais usadas.
+    * Padrões de formulários, botões e responsividade.
+* [X] **Histórico de Versões**
+
+  * [X] Criar `CHANGELOG.md` com:
+
+    * Registro das principais alterações por sprint.
+    * Data, descrição e autor.
+  * [X] Incluir marcações de versão (ex: `v0.1.0` para MVP final).
+* [X] **Checklist de Entrega**
+
+  * [X] Verificar que todos os templates estão traduzidos para PT-BR.
+  * [X] Garantir que os arquivos estáticos (CSS/JS) estão corretamente servidos.
+  * [X] Confirmar que não há dados sensíveis hardcoded.
+  * [X] Revisar consistência visual e tipográfica.
+  * [X] Testar execução completa em ambiente limpo (sem dependências prévias).
+
+
 ### Sprint Final: Docker e Testes (Semana 8+) [X]
 - [X] Dockerização
   - [X] Criar Dockerfile para Django + SQLite.
