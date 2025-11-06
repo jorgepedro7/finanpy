@@ -173,7 +173,7 @@
                     <h3 class="text-sm font-semibold text-indigo-200 uppercase tracking-widest">Receitas x despesas por categoria</h3>
                     {% if reports_category_chart.labels %}
                         <div class="h-72 bg-gray-900/60 border border-gray-700 rounded-lg p-3">
-                            <canvas id="reportsCategoryChart" aria-label="Gráfico de receitas e despesas por categoria" role="img"></canvas>
+                            <canvas id="reportsCategoryChart" class="w-full h-full" aria-label="Gráfico de receitas e despesas por categoria" role="img"></canvas>
                         </div>
                     {% else %}
                         <div class="h-72 bg-gray-900/60 border border-dashed border-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-sm">
@@ -185,7 +185,7 @@
                     <h3 class="text-sm font-semibold text-indigo-200 uppercase tracking-widest">Fluxo por conta</h3>
                     {% if reports_account_chart.labels %}
                         <div class="h-72 bg-gray-900/60 border border-gray-700 rounded-lg p-3">
-                            <canvas id="reportsAccountChart" aria-label="Gráfico de fluxo por conta" role="img"></canvas>
+                            <canvas id="reportsAccountChart" class="w-full h-full" aria-label="Gráfico de fluxo por conta" role="img"></canvas>
                         </div>
                     {% else %}
                         <div class="h-72 bg-gray-900/60 border border-dashed border-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-sm">
