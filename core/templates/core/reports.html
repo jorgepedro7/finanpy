@@ -9,6 +9,12 @@
                 Visualize o desempenho das suas contas e categorias em um intervalo de datas personalizado.
             </p>
         </div>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+            <a href="{{ export_url }}"
+               class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-gray-700 bg-gray-900/70 text-sm font-semibold text-indigo-200 hover:text-indigo-100 hover:bg-gray-800 transition">
+                Exportar CSV
+            </a>
+        </div>
     </header>
 
     <section class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-5">
@@ -155,15 +161,38 @@
             </div>
         </section>
 
-        <section class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
-            <header>
+        <section class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-6">
+            <header class="space-y-2">
                 <h2 class="text-lg font-semibold text-white">Visualização gráfica</h2>
                 <p class="text-xs text-gray-400">
-                    Um gráfico interativo em Chart.js será integrado em sprints futuras para enriquecer as análises.
+                    Explore tendências e distribuições com gráficos dinâmicos gerados a partir dos dados filtrados.
                 </p>
             </header>
-            <div class="h-64 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-500 text-sm">
-                Placeholder para gráfico de categorias (Chart.js)
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <h3 class="text-sm font-semibold text-indigo-200 uppercase tracking-widest">Receitas x despesas por categoria</h3>
+                    {% if reports_category_chart.labels %}
+                        <div class="h-72 bg-gray-900/60 border border-gray-700 rounded-lg p-3">
+                            <canvas id="reportsCategoryChart" aria-label="Gráfico de receitas e despesas por categoria" role="img"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="h-72 bg-gray-900/60 border border-dashed border-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-sm">
+                            Nenhuma categoria possui movimentações no período selecionado.
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-sm font-semibold text-indigo-200 uppercase tracking-widest">Fluxo por conta</h3>
+                    {% if reports_account_chart.labels %}
+                        <div class="h-72 bg-gray-900/60 border border-gray-700 rounded-lg p-3">
+                            <canvas id="reportsAccountChart" aria-label="Gráfico de fluxo por conta" role="img"></canvas>
+                        </div>
+                    {% else %}
+                        <div class="h-72 bg-gray-900/60 border border-dashed border-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-sm">
+                            Nenhuma movimentação encontrada para contas no período selecionado.
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </section>
     {% else %}
@@ -185,3 +214,46 @@
     {% endif %}
 </div>
 {% endblock content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% if reports_category_chart.labels %}
+        {{ reports_category_chart|json_script:"reports-category-data" }}
+    {% endif %}
+    {% if reports_account_chart.labels %}
+        {{ reports_account_chart|json_script:"reports-account-data" }}
+    {% endif %}
+    <script>
+        (function () {
+            const charts = window.FinanpyCharts;
+            if (!charts) {
+                return;
+            }
+
+            const categoryElement = document.getElementById('reports-category-data');
+            if (categoryElement) {
+                const data = JSON.parse(categoryElement.textContent);
+                if (data.labels.length) {
+                    charts.renderGroupedBars('reportsCategoryChart', data.labels, [
+                        { values: data.income, color: '#22C55E' },
+                        { values: data.expense, color: '#EF4444' },
+                    ]);
+                }
+            }
+
+            const accountElement = document.getElementById('reports-account-data');
+            if (accountElement) {
+                const data = JSON.parse(accountElement.textContent);
+                if (data.labels.length) {
+                    charts.renderComboBarLine(
+                        'reportsAccountChart',
+                        data.labels,
+                        data.income,
+                        data.expense,
+                        data.balance,
+                    );
+                }
+            }
+        }());
+    </script>
+{% endblock extra_js %}

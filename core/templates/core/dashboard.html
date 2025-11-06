@@ -115,14 +115,22 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-3">
-                <h2 class="text-lg font-semibold text-white">Distribuição por categoria</h2>
-                <p class="text-sm text-gray-400">
-                    Um gráfico de pizza será exibido aqui mostrando a proporção das suas despesas e receitas por categoria.
-                </p>
-                <div class="h-48 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-600">
-                    Placeholder do gráfico
+            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-white">Distribuição por categoria</h2>
+                    <p class="text-sm text-gray-400">
+                        Visualize como as despesas do mês atual se distribuem entre as categorias cadastradas.
+                    </p>
                 </div>
+                {% if dashboard_category_chart.labels %}
+                    <div class="h-64">
+                        <canvas id="dashboardCategoryChart" aria-label="Gráfico de distribuição por categoria" role="img"></canvas>
+                    </div>
+                {% else %}
+                    <div class="h-64 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-500 text-sm">
+                        Cadastre categorias e transações para visualizar o gráfico.
+                    </div>
+                {% endif %}
                 <div class="space-y-2 text-sm text-gray-300">
                     {% if categories %}
                         <p class="text-xs text-gray-500">
@@ -154,11 +162,22 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-3">
-                <h2 class="text-lg font-semibold text-white">Saldo por conta</h2>
-                <p class="text-sm text-gray-400">
-                    Acompanhe o saldo individual de cada conta bancária cadastrada e mantenha o controle atualizado.
-                </p>
+            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-white">Saldo por conta</h2>
+                    <p class="text-sm text-gray-400">
+                        Acompanhe o saldo individual de cada conta bancária cadastrada e mantenha o controle atualizado.
+                    </p>
+                </div>
+                {% if dashboard_account_chart.labels %}
+                    <div class="h-64">
+                        <canvas id="dashboardAccountChart" aria-label="Gráfico de saldo por conta" role="img"></canvas>
+                    </div>
+                {% else %}
+                    <div class="h-64 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-500 text-sm">
+                        Cadastre contas para visualizar o gráfico de saldos.
+                    </div>
+                {% endif %}
                 <div class="space-y-2 text-sm text-gray-300">
                     {% if accounts %}
                         {% for account in accounts %}
@@ -179,6 +198,69 @@
                 </div>
             </div>
         </div>
+
+        <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 space-y-4">
+            <div>
+                <h2 class="text-lg font-semibold text-white">Evolução mensal</h2>
+                <p class="text-sm text-gray-400">
+                    Compare receitas, despesas e a meta recomendada de gastos (80% das receitas) nos últimos seis meses.
+                </p>
+            </div>
+            {% if dashboard_monthly_chart.labels %}
+                <div class="h-72">
+                    <canvas id="dashboardMonthlyChart" aria-label="Gráfico de evolução mensal de receitas e despesas" role="img"></canvas>
+                </div>
+            {% else %}
+                <div class="h-72 rounded-lg border border-dashed border-gray-700 flex items-center justify-center text-gray-500 text-sm">
+                    Registre transações para visualizar a evolução mensal.
+                </div>
+            {% endif %}
+        </div>
     </section>
 </div>
 {% endblock content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% if dashboard_category_chart.labels %}
+        {{ dashboard_category_chart|json_script:"dashboard-category-data" }}
+    {% endif %}
+    {% if dashboard_account_chart.labels %}
+        {{ dashboard_account_chart|json_script:"dashboard-account-data" }}
+    {% endif %}
+    {% if dashboard_monthly_chart.labels %}
+        {{ dashboard_monthly_chart|json_script:"dashboard-monthly-data" }}
+    {% endif %}
+    <script>
+        (function () {
+            const charts = window.FinanpyCharts;
+            if (!charts) {
+                return;
+            }
+
+            const categoryElement = document.getElementById('dashboard-category-data');
+            if (categoryElement) {
+                const data = JSON.parse(categoryElement.textContent);
+                if (data.labels.length) {
+                    charts.renderDonutChart('dashboardCategoryChart', data.labels, data.values, data.colors);
+                }
+            }
+
+            const accountElement = document.getElementById('dashboard-account-data');
+            if (accountElement) {
+                const data = JSON.parse(accountElement.textContent);
+                if (data.labels.length) {
+                    charts.renderHorizontalBarChart('dashboardAccountChart', data.labels, data.balances);
+                }
+            }
+
+            const monthlyElement = document.getElementById('dashboard-monthly-data');
+            if (monthlyElement) {
+                const data = JSON.parse(monthlyElement.textContent);
+                if (data.labels.length) {
+                    charts.renderLineChart('dashboardMonthlyChart', data.labels, data.income, data.expense, data.target);
+                }
+            }
+        }());
+    </script>
+{% endblock extra_js %}

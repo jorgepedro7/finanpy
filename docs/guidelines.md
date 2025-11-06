@@ -15,6 +15,7 @@
   - Gradientes indigo/azul para ações principais, cinzas escuros para fundos e cartões.
   - Botões principais com gradiente (`from-indigo-600 to-blue-700`) e estados de hover.
   - Inputs com fundo escuro, bordas cinza e foco com `ring` indigo.
+- Gráficos interativos renderizados pelo script local `FinanpyCharts` (compatível com ambientes offline) devem manter a paleta escura (linhas verdes, vermelhas e neutras), exibir valores em BRL e seguir a meta padrão de gastos em 80% das receitas ou metas personalizadas quando disponíveis.
 - Layout responsivo mobile-first, com grid flexível em dashboards e formulários acessíveis (labels, ARIA quando necessário).
 - Sidebar e navbar devem manter consistência de estilos e posicionamento conforme orientação do PRD.
 

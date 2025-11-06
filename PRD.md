@@ -30,7 +30,7 @@ O propósito do Finanpy é fornecer uma ferramenta simples e eficaz para que ind
 ## Requisitos funcionais
 
 - **Autenticação**: Cadastro e login via e-mail usando Django Auth nativo. Site público com páginas de login/cadastro redirecionando para dashboard.
-- **Dashboard Principal**: Após login, exibe saldo total, transações recentes (últimas 10), gráfico de pizza por categoria e saldo por conta.
+- **Dashboard Principal**: Após login, exibe saldo total, transações recentes (últimas 10), gráfico de pizza por categoria (renderizado via script local FinanpyCharts) e saldo por conta.
 - **Gerenciamento de Contas**: CRUD para contas bancárias (nome, saldo inicial, tipo: corrente/poupança/cartão).
 - **Gerenciamento de Categorias**: CRUD para categorias de transações (nome, tipo: receita/despesa, cor personalizável).
 - **Gerenciamento de Transações**: CRUD para entradas/saídas (valor, data, descrição, categoria, conta associada).
@@ -257,7 +257,7 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
   - [X] Em profiles/apps.py, importar signals em ready().
 - [X] Dashboard View
   - [X] Em core/views.py, LoginRequiredMixin + TemplateView para /dashboard/.
-  - [X] Template dashboard.html com grid Tailwind, seções para saldo e transações placeholder.
+- [X] Template dashboard.html com grid Tailwind, seções para saldo, transações e gráficos interativos.
   - [X] Adicionar menu sidebar com links para seções futuras.
 
 ### Sprint 3: Contas Bancárias (Semana 4) [X]
@@ -307,13 +307,13 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
 - [X] Relatórios View
   - [X] Em core/views.py, TemplateView com filtros GET (data_inicio, data_fim).
   - [X] Query agregada por categoria/conta usando annotate.
-  - [X] Template report.html com tabela e gráfico placeholder (div para Chart.js futuro).
+- [X] Template report.html com tabela e gráficos interativos alimentados pelo filtro de período.
 - [X] Polir UX
   - [X] Adicionar mensagens flash (Django messages) em PT-BR para ações CRUD.
   - [X] Garantir responsividade em todos templates.
   - [X] Testar fluxos end-to-end manualmente.
 - [X] Preparar para Sprints Finais
-  - [X] Documentar pendências: Docker, testes unitários, Chart.js integração.
+- [X] Documentar pendências: Docker, testes unitários, integração dos gráficos (FinanpyCharts).
 
 
 
@@ -386,3 +386,11 @@ Templates usam `{% load static %}` para Tailwind via `<script src="https://cdn.t
 - [X] Testes Básicos
   - [X] Em tests.py de cada app, tests para models e views (pytest ou Django TestCase).
   - [X] Cobertura >70% para autenticação e CRUD.
+
+### Sprint 8: Visualizações Avançadas e Qualidade (Planejado) [X]
+- [X] Evoluir dashboards com gráfico de linha mensal (receitas x despesas) e comparativo com metas.
+- [X] Disponibilizar exportação de relatórios filtrados em CSV diretamente pela página de relatórios.
+- [X] Cobrir agregações de relatórios e dashboards com testes automatizados (unitários e integração) garantindo precisão dos gráficos.
+- [X] Documentar no `docs/overview.md` e `docs/guidelines.md` o padrão de uso dos gráficos e futuras extensões.
+
+> Notas: A meta padrão de gastos considera 80% das receitas mensais; quando metas personalizadas forem introduzidas, este cálculo deverá ser ajustado mantendo compatibilidade com os gráficos existentes.

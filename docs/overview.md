@@ -10,7 +10,7 @@
 - Autenticação customizada com login por e-mail, templates Tailwind completos (home pública, login/signup, dashboard, contas, categorias, transações e relatórios).
 - Migrações dedicadas implementam `Profile`, `Account` (com saldo atual), `Category` e `Transaction`, com signals para criação automática de perfis e atualização de saldos das contas.
 - Views baseadas em classe oferecem CRUD completo para contas, categorias e transações, com mensagens de sucesso em PT-BR, filtros por data e indicadores resumidos.
-- Dashboard apresenta saldo consolidado, KPIs mensais, últimas transações, visão das contas e destaques de categorias; página de relatórios fornece filtros por data e tabelas agregadas por conta/categoria.
+- Dashboard apresenta saldo consolidado, KPIs mensais, últimas transações, visão das contas, destaques de categorias e gráfico mensal comparando receitas, despesas e meta de gastos (80% das receitas); a camada de gráficos usa o script local `FinanpyCharts` para garantir visualização offline. Página de relatórios fornece filtros por data, tabelas agregadas, gráficos dinâmicos e exportação CSV alinhada aos filtros ativos.
 - Admin do Django exibe modelos customizados com inlines para transações dentro de contas e categorias.
 
 ## Como o PRD deve ser lido
@@ -20,4 +20,4 @@
 ## Pendências priorizadas para as próximas sprints
 - Containerização com Docker (Dockerfile e docker-compose para empacotar a aplicação e o banco SQLite).
 - Testes automatizados (unitários e de integração) cobrindo autenticação e fluxos CRUD principais.
-- Integração de gráficos interativos (Chart.js) nos dashboards e relatórios, substituindo os placeholders atuais.
+- Permitir metas personalizadas por usuário e comparativos anuais nos gráficos, além de ampliar exportações para formatos adicionais (PDF) com filtros avançados.
