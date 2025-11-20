@@ -244,11 +244,14 @@
         });
     }
 
-    function renderHorizontalBarChart(canvasId, labels, values) {
+    function renderHorizontalBarChart(canvasId, labels, values, colors) {
         if (!values || !values.length) {
             destroyChart(canvasId);
             return;
         }
+        const datasetColors = Array.isArray(colors) && colors.length
+            ? colors
+            : values.map((_, index) => getFallbackColor(index));
         const bounds = computeAxisBounds([values]);
         registerChart(canvasId, {
             type: 'bar',
@@ -258,7 +261,7 @@
                     {
                         label: 'Saldo',
                         data: values,
-                        backgroundColor: '#38BDF8',
+                        backgroundColor: datasetColors,
                         borderRadius: 9,
                         borderSkipped: false,
                         maxBarThickness: 32,

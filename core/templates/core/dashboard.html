@@ -36,23 +36,28 @@
             </p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-5 space-y-1">
                 <span class="text-xs uppercase tracking-widest text-indigo-300">Saldo geral</span>
                 <p class="text-2xl font-semibold text-white">
                     R$ {{ total_balance|default_if_none:'0'|floatformat:2 }}
                 </p>
-                <p class="text-xs text-gray-400">Atualizado automaticamente conforme você registra novas contas e transações.</p>
+                <p class="text-xs text-gray-400">Saldos somados de todas as contas.</p>
             </div>
             <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-5 space-y-1">
                 <span class="text-xs uppercase tracking-widest text-green-300">Receitas do mês</span>
                 <p class="text-2xl font-semibold text-green-400">R$ {{ monthly_income|default_if_none:'0'|floatformat:2 }}</p>
-                <p class="text-xs text-gray-400">Resumo das entradas cadastradas no mês atual.</p>
+                <p class="text-xs text-gray-400">Entradas no mês atual.</p>
             </div>
             <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-5 space-y-1">
                 <span class="text-xs uppercase tracking-widest text-red-300">Despesas do mês</span>
                 <p class="text-2xl font-semibold text-red-400">R$ {{ monthly_expense|default_if_none:'0'|floatformat:2 }}</p>
-                <p class="text-xs text-gray-400">Total de saídas registradas no mês atual.</p>
+                <p class="text-xs text-gray-400">Saídas no mês atual.</p>
+            </div>
+            <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-5 space-y-1">
+                <span class="text-xs uppercase tracking-widest {% if monthly_net_balance > 0 %}text-green-300{% else %}text-red-300{% endif %}">Balanço do mês</span>
+                <p class="text-2xl font-semibold {% if monthly_net_balance > 0 %}text-green-400{% else %}text-red-400{% endif %}">R$ {{ monthly_net_balance|default_if_none:'0'|floatformat:2 }}</p>
+                <p class="text-xs text-gray-400">Receitas menos despesas.</p>
             </div>
         </div>
 
@@ -242,7 +247,7 @@
             if (categoryElement) {
                 const data = JSON.parse(categoryElement.textContent);
                 if (data.labels.length) {
-                    charts.renderDonutChart('dashboardCategoryChart', data.labels, data.values, data.colors);
+                    charts.renderHorizontalBarChart('dashboardCategoryChart', data.labels, data.values, data.colors);
                 }
             }
 

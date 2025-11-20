@@ -98,6 +98,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 Decimal('0.00'),
             ),
         )
+        monthly_net_balance = (
+            monthly_totals['total_income'] - monthly_totals['total_expense']
+        )
         recent_transactions = (
             Transaction.objects.filter(user=self.request.user)
             .select_related('account', 'category')
@@ -188,6 +191,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 'recent_transactions': recent_transactions,
                 'monthly_income': monthly_totals['total_income'],
                 'monthly_expense': monthly_totals['total_expense'],
+                'monthly_net_balance': monthly_net_balance,
                 'dashboard_category_chart': {
                     'labels': category_labels,
                     'values': category_values,
